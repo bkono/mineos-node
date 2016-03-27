@@ -4,6 +4,13 @@ MAINTAINER William Dizon <wdchromium@gmail.com>
 #arbitrarily assigned ports for 5 servers. change if you need to.
 EXPOSE 8443 25565
 
+# Configure user nobody to match unRAID's settings
+RUN \
+ usermod -u 99 nobody && \
+ usermod -g 100 nobody && \
+ usermod -d /home nobody && \
+ chown -R nobody:users /home
+
 RUN useradd -ms /bin/bash mc
 RUN echo 'mc:minecraft' | chpasswd
 
